@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado OBA 2026 - Olimpíada Brasileira de Astronomia e Astronáutica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        espaco: {
+                            escuro: '#0B0E27',
+                            medio: '#1A1F45',
+                            claro: '#2D347A',
+                            destaque: '#4CC9F0',
+                            neon: '#72EFDD',
+                            alerta: '#F72585',
+                            sucesso: '#38B000'
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        espaco: ['Orbitron', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(76, 201, 240, 0.5), 0 0 30px rgba(114, 239, 221, 0.3)',
+                        'glow-verde': '0 0 15px rgba(56, 176, 0, 0.5)',
+                        'glow-vermelho': '0 0 15px rgba(247, 37, 133, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 0 8px rgba(76, 201, 240, 0.6);
+            }
+            .bg-estrelas {
+                background-image: 
+                    radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+                    radial-gradient(2px 2px at 60px 70px, #ffffff, transparent),
+                    radial-gradient(1px 1px at 50px 50px, #ffffff, transparent),
+                    radial-gradient(1px 1px at 130px 80px, #ffffff, transparent),
+                    radial-gradient(2px 2px at 90px 10px, #ffffff, transparent);
+                background-size: 200px 200px;
+                animation: estrelas 80s linear infinite;
+            }
+            @keyframes estrelas {
+                from { transform: translate(0, 0); }
+                to { transform: translate(-100px, 100px); }
+            }
+            .alternativa {
+                transition: all 0.3s ease;
+            }
+            .secao-questao {
+                transition: all 0.5s ease;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-espaco-escuro text-white font-sans min-h-screen overflow-x-hidden bg-estrelas">
+    <!-- Container Principal -->
+    <div class="container mx-auto px-4 py-6 max-w-4xl">
+        <!-- Cabeçalho -->
+        <header class="text-center mb-10">
+            <h1 class="font-espaco text-[clamp(1.8rem,4vw,3.2rem)] font-bold text-espaco-destaque text-shadow mb-2">
+                <i class="fa fa-rocket mr-3"></i>Simulado OBA 2026
+            </h1>
+            <p class="text-espaco-neon/80 text-lg">Olimpíada Brasileira de Astronomia e Astronáutica</p>
+        </header>
+
+        <!-- Cronômetro e Status -->
+        <div class="bg-espaco-medio/80 backdrop-blur-md rounded-xl p-5 mb-8 shadow-glow flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h3 class="text-sm text-espaco-neon/70 uppercase tracking-wider">Tempo Decorrido</h3>
+                <div id="cronometro" class="font-espaco text-3xl font-semibold text-white">00:00:00</div>
+            </div>
+            <div class="w-full md:w-2/3">
+                <div class="flex justify-between text-sm mb-1">
+                    <span>Progresso da Prova</span>
+                    <span id="contador-respostas">0 de 10 questões respondidas</span>
+                </div>
+                <div class="w-full h-3 bg-espaco-claro/50 rounded-full overflow-hidden">
+                    <div id="barra-progresso" class="h-full bg-gradient-to-r from-espaco-destaque to-espaco-neon w-0 transition-all duration-500 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aviso de Reinício -->
+        <div id="aviso-reinicio" class="hidden bg-espaco-alerta/20 border border-espaco-alerta/50 rounded-lg p-4 mb-6 text-center">
+            <p class="font-semibold"><i class="fa fa-exclamation-triangle mr-2"></i>A prova foi reiniciada porque você saiu da página.</p>
+        </div>
+
+        <!-- Seções de Questões -->
+        <form id="formulario-prova" class="space-y-12 mb-12">
+            <!-- Fáceis -->
+            <section class="secao-questao">
+                <h2 class="font-espaco text-xl font-bold text-espaco-destaque mb-4 flex items-center">
+                    <span class="w-8 h-8 rounded-full bg-espaco-destaque/20 flex items-center justify-center mr-2 text-espaco-destaque">F</span>
+                    Questões Fáceis
+                </h2>
+                <div class="space-y-6 pl-4">
+                    <!-- Questão 1 -->
+                    <div class="bg-espaco-medio/50 rounded-lg p-5 border border-espaco-claro/30 hover:border-espaco-destaque/40 transition-all">
+                        <p class="font-medium mb-4">1. Se no Brasil é dia, em regiões do outro lado da Terra geralmente é noite porque:</p>
+                        <div class="space-y-3">
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q1" value="A" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>A) a Lua bloqueia a luz solar</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q1" value="B" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>B) a Terra realiza o movimento de rotação</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q1" value="C" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>C) o Sol gira em torno da Terra</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q1" value="D" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>D) a atmosfera impede a passagem da luz</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Questão 2 -->
+                    <div class="bg-espaco-medio/50 rounded-lg p-5 border border-espaco-claro/30 hover:border-espaco-destaque/40 transition-all">
+                        <p class="font-medium mb-4">2. A Lua apresenta sempre a mesma face voltada para a Terra porque:</p>
+                        <div class="space-y-3">
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q2" value="A" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>A) ela não possui rotação</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q2" value="B" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>B) sua rotação e sua translação têm aproximadamente o mesmo período</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q2" value="C" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>C) a gravidade da Terra impede seu movimento</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q2" value="D" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>D) o Sol ilumina apenas um lado</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Questão 3 -->
+                    <div class="bg-espaco-medio/50 rounded-lg p-5 border border-espaco-claro/30 hover:border-espaco-destaque/40 transition-all">
+                        <p class="font-medium mb-4">3. Em qual situação a força gravitacional entre dois corpos será maior?</p>
+                        <div class="space-y-3">
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q3" value="A" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>A) massas pequenas e grande distância</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q3" value="B" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>B) massas grandes e pequena distância</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q3" value="C" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>C) massas pequenas e pequena distância</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q3" value="D" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>D) massas grandes e grande distância</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Médias -->
+            <section class="secao-questao">
+                <h2 class="font-espaco text-xl font-bold text-espaco-destaque mb-4 flex items-center">
+                    <span class="w-8 h-8 rounded-full bg-espaco-destaque/20 flex items-center justify-center mr-2 text-espaco-destaque">M</span>
+                    Questões Médias
+                </h2>
+                <div class="space-y-6 pl-4">
+                    <!-- Questão 4 -->
+                    <div class="bg-espaco-medio/50 rounded-lg p-5 border border-espaco-claro/30 hover:border-espaco-destaque/40 transition-all">
+                        <p class="font-medium mb-4">4. Um astronauta pesa 800 N na Terra. Na Lua, onde a gravidade é cerca de 6 vezes menor, seu peso será aproximadamente:</p>
+                        <div class="space-y-3">
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q4" value="A" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>A) 800 N</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q4" value="B" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>B) 4800 N</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q4" value="C" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>C) 133 N</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q4" value="D" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>D) 50 N</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Questão 5 -->
+                    <div class="bg-espaco-medio/50 rounded-lg p-5 border border-espaco-claro/30 hover:border-espaco-destaque/40 transition-all">
+                        <p class="font-medium mb-4">5. A principal razão de existirem estações do ano na Terra é:</p>
+                        <div class="space-y-3">
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q5" value="A" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>A) a variação da distância entre Terra e Sol</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q5" value="B" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>B) o movimento das nuvens</span>
+                            </label>
+                            <label class="alternativa flex items-center p-3 rounded-md border border-transparent cursor-pointer hover:bg-espaco-claro/30">
+                                <input type="radio" name="q5" value="C" class="accent-espaco-neon w-4 h-4 mr-3">
+                                <span>C) a inclinação do eixo terrestre</span>
+                            </label>
+                            <label class="
